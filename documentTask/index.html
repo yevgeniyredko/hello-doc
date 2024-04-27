@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8"/>
+    <title>Hello, doc!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="https://s.kontur.ru/common-v2/fonts/LabGrotesque/LabGrotesque.css">
+    <link rel="stylesheet" href="../static/styles.css"/>
+    <link rel="shortcut icon" href="../static/favicon.ico"/>
+</head>
+
+<body>
+
+<script src="workflow.js"></script>
+<script src="tasks/task1.js"></script>
+<script src="tasks/task2.js"></script>
+<script src="tasks/task3.js"></script>
+<script src="tasks/task4.js"></script>
+<script src="tasks/task5.js"></script>
+<script src="tests.js"></script>
+<script src="../uiframework.js"></script>
+
+<div id="Wizard" class="pageLayout">
+    <h2>
+        Добро пожаловать в <s>Диадок</s>
+    </h2>
+    <div style="margin-bottom: 20px;">
+        Инструкция
+    </div>
+    <button class="button" onclick="startTasks()">Начать!</button>
+</div>
+
+<div id="MainTask" class="pageLayout">
+    <h2>
+        Задача <span id="TestNumber"></span>
+    </h2>
+
+    <div class="pageLayout" style="margin-bottom: 20px;">
+        <span>Исходящий документ №<span id="DocumentNumber"></span></span>
+        <span><span id="DocumentSum"></span>₽</span>
+    </div>
+
+    <button class="button" onclick="_runTest();">Подписать и отправить</button>
+
+    <div id="Docflow" class="docflow">
+        <div id="Draft" class="doc">
+            <span>Создан черновик</span>
+        </div>
+
+        <div id="Signed" class="doc arrowFromLeft">
+            <span>Документ подписан и отправлен</span>
+        </div>
+
+        <div id="Delivered" class="doc arrowFromLeft">
+            <span>Документ доставлен</span>
+        </div>
+
+        <div id="ReceiptSigned" class="doc arrowFromLeft">
+            <span>Подписано извещение о получении</span>
+        </div>
+
+        <div id="DocflowFinished" class="doc arrowFromLeft">
+            <span>Документооборот завершен</span>
+        </div>
+
+
+
+        <div id="InvalidSignature" class="doc arrowDottedFromTop">
+            <span>Подпись не прошла проверку</span>
+        </div>
+
+
+
+        <div id="InvalidReceiptSignature" class="doc arrowDottedFromTop">
+            <span>Подпись ИОП не прошла проверку</span>
+        </div>
+
+
+
+        <div id="RejectionRequested" class="doc arrowDottedFromTop">
+            <span>Запрошено аннулирование</span>
+        </div>
+
+        <div id="DocflowRejected" class="doc arrowFromLeft">
+            <span>Аннулирование одобрено</span>
+        </div>
+    </div>
+
+    <button class="button hidden" id="NextTaskButton" onclick="goToNextTask();">Следующая задача</button>
+
+</div>
+
+<div id="TasksComplete" class="hidden">
+    <h1>Все задачи выполнены!</h1>
+    <span id="StartTime"></span>
+    <span id="EndTime"></span>
+</div>
+
+<script src="../index.js"></script>
+
+</body>
+
+</html>
