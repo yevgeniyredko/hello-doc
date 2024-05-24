@@ -18,7 +18,7 @@ function onTestNumberChanged(value) {
 function _runTest() {
     const {eventPack, expectedResult} = testCases[currentTask];
     if (!eventPack || eventPack.length === 0) {
-        alert("Задание не выполнено!");
+        alert("В цепочке документооборота отсутствуют события");
         return;
     }
 
@@ -44,7 +44,7 @@ function runTestStep(events, eventNumber, state, expectedResult) {
     const event = events[eventNumber];
     runWorkflowEvent(state, event);
     if (state.error != null) {
-        alert(state.error);
+        alert(`Произошла ошибка: ${state.error}`);
         return;
     }
 

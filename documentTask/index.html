@@ -23,10 +23,16 @@
 
 <div id="Wizard" class="pageLayout">
     <h2>
-        Добро пожаловать в <s>Диадок</s>
+        Модель электронного документооборота
     </h2>
-    <div style="margin-bottom: 20px;">
-        Инструкция
+    <div style="width: 800px; margin-bottom: 20px; text-align: left;">
+        Электронный документооборот между организациями состоит из цепочки — последовательности событий, происходящих с документом, например: формирование документа, подпись отправителем, доставка получателю и т.д.
+    </div>
+    <div style="width: 800px; margin-bottom: 20px; text-align: left;">
+        В данной активности необходимо сформировать такие цепочки документооборота, которые "приведут" его в статус, подсвеченный зеленым цветом.
+    </div>
+    <div style="width: 800px; margin-bottom: 20px; text-align: left;">
+        Задачи находятся в папке tasks/, а обработчик событий — в файле workflow.js
     </div>
     <button class="button" onclick="startTasks()">Начать!</button>
 </div>
@@ -93,8 +99,14 @@
 
 <div id="TasksComplete" class="hidden">
     <h1>Все задачи выполнены!</h1>
-    <span id="StartTime"></span>
-    <span id="EndTime"></span>
+
+    <div class="pageLayout" style="margin-bottom: 20px;">
+        <span>Диадок обрабатывает десятки тысяч событий по документооборотам в минуту</span>
+        <span></span>
+    </div>
+
+    <span id="StartTime" class="hidden"></span>
+    <span id="EndTime" class="hidden"></span>
 </div>
 
 <script src="../index.js"></script>
