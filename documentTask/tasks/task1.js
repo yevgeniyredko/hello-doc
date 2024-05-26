@@ -1,5 +1,5 @@
 function task1() {
     return [
-        {type: "DocumentCreated", payload: {documentNumber: "ПРЕФ5-12", totalSum: 0.48}}
+        {type: "DocumentCreated", payload: {documentNumber: "ИК1-88", totalSum: 1000000.48}}
     ];
 }

@@ -1,5 +1,5 @@
 let currentTask = 1;
-const taskCount = 5;
+const taskCount = 6;
 
 let startTime;
 let endTime;
@@ -9,9 +9,10 @@ function onTestNumberChanged(value) {
 
     setAllGray();
     const {expectedResult} = testCases[currentTask];
+    const isOutgoing = expectedResult.direction === "Outgoing";
     makeDocGreen(expectedResult.status);
     setText("TestNumber", currentTask + 1);
-    setText("DocumentNumber", expectedResult.documentNumber);
+    setText("DocumentNumber", isOutgoing ? `Исходящий документ №${expectedResult.documentNumber}` : `Входящий документ №${expectedResult.documentNumber}`);
     setText("DocumentSum", expectedResult.totalSum);
 }
 

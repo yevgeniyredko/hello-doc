@@ -4,8 +4,8 @@
         expectedResult: {
             documentType: "Draft",
             direction: "Outgoing",
-            documentNumber: "ПРЕФ5-12",
-            totalSum: 0.48,
+            documentNumber: "ИК1-88",
+            totalSum: 1000000.48,
             status: "Draft",
         }
     },
@@ -13,10 +13,10 @@
         eventPack: task2(),
         expectedResult: {
             documentType: "Document",
-            direction: "Outgoing",
-            documentNumber: "СОЛО-15",
-            totalSum: 322.0,
-            status: "InvalidSignature",
+            direction: "Incoming",
+            documentNumber: "ВОД-15",
+            totalSum: 3808.0,
+            status: "Delivered",
         }
     },
     {
@@ -24,16 +24,16 @@
         expectedResult: {
             documentType: "Document",
             direction: "Outgoing",
-            documentNumber: "МЕМ-1",
-            totalSum: 15478.0,
-            status: "InvalidReceiptSignature",
+            documentNumber: "МЕМ-42",
+            totalSum: 42.0,
+            status: "Delivered",
         }
     },
     {
         eventPack: task4(),
         expectedResult: {
             documentType: "Document",
-            direction: "Outgoing",
+            direction: "Incoming",
             documentNumber: "1988",
             totalSum: 8008.0,
             status: "DocflowFinished",
@@ -46,6 +46,16 @@
             direction: "Outgoing",
             documentNumber: "ПА-5",
             totalSum: 108000.0,
+            status: "DocflowRejected",
+        }
+    },
+    {
+        eventPack: task6(),
+        expectedResult: {
+            documentType: "Document",
+            direction: "Incoming",
+            documentNumber: "ПА-6",
+            totalSum: 108000.01,
             status: "DocflowRejected",
         }
     },

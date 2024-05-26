@@ -41,24 +41,24 @@ function runWorkflowEvent(state, nextEvent) {
             processDocumentSigned(state, nextEvent);
             break;
         }
-        case "DocumentSignatureVerified": {
-            processDocumentSignatureVerified(state, nextEvent);
+        case "DocumentSignatureVerificationCompleted": {
+            processDocumentSignatureVerificationCompleted(state, nextEvent);
             break;
         }
         case "ReceiptSigned": {
             processReceiptSigned(state, nextEvent);
             break;
         }
-        case "ReceiptSignatureVerified": {
-            processReceiptSignatureVerified(state, nextEvent);
+        case "ReceiptSignatureVerificationCompleted": {
+            processReceiptSignatureVerificationCompleted(state, nextEvent);
             break;
         }
-        case "SignatureRejected": {
-            processSignatureRejected(state, nextEvent);
+        case "RevocationRequested": {
+            processRevocationRequested(state, nextEvent);
             break;
         }
-        case "SignatureRejectionDelivered": {
-            processSignatureRejectionDelivered(state, nextEvent);
+        case "RevocationRequestDelivered": {
+            processRevocationRequestDelivered(state, nextEvent);
             break;
         }
         default: {
@@ -107,7 +107,7 @@ function processDocumentSigned(state, event) {
     state.appliedEvents.add("DocumentSigned");
 }
 
-function processDocumentSignatureVerified(state, event) {
+function processDocumentSignatureVerificationCompleted(state, event) {
     if (state.appliedEvents.size === 0 || !state.appliedEvents.has("DocumentSigned")) {
         state.error = "Sign document before verifying signature";
         return;
@@ -122,11 +122,11 @@ function processDocumentSignatureVerified(state, event) {
     if (event.payload.isSuccess) {
         state.data.status = "Delivered";
     }
-    state.appliedEvents.add("DocumentSignatureVerified");
+    state.appliedEvents.add("DocumentSignatureVerificationCompleted");
 }
 
 function processReceiptSigned(state, event) {
-    if (state.appliedEvents.size === 0 || !(state.appliedEvents.has("DocumentSignatureVerified") || state.appliedEvents.has("DocumentReceived"))) {
+    if (state.appliedEvents.size === 0 || !(state.appliedEvents.has("DocumentSignatureVerificationCompleted") || state.appliedEvents.has("DocumentReceived"))) {
         state.error = "Deliver document before signing receipt";
         return;
     }
@@ -142,7 +142,7 @@ function processReceiptSigned(state, event) {
     state.appliedEvents.add("ReceiptSigned");
 }
 
-function processReceiptSignatureVerified(state, event) {
+function processReceiptSignatureVerificationCompleted(state, event) {
     if (state.appliedEvents.size === 0 || !state.appliedEvents.has("ReceiptSigned")) {
         state.error = "Sign receipt before verifying signature";
         return;
@@ -157,11 +157,11 @@ function processReceiptSignatureVerified(state, event) {
     if (event.payload.isSuccess) {
         state.data.status = "DocflowFinished";
     }
-    state.appliedEvents.add("ReceiptSignatureVerified");
+    state.appliedEvents.add("ReceiptSignatureVerificationCompleted");
 }
 
-function processSignatureRejected(state, event) {
-    if (state.appliedEvents.size === 0 || !state.appliedEvents.has("ReceiptSignatureVerified")) {
+function processRevocationRequested(state, event) {
+    if (state.appliedEvents.size === 0 || !state.appliedEvents.has("ReceiptSignatureVerificationCompleted")) {
         state.error = "Deliver document before rejecting";
         return;
     }
@@ -174,11 +174,11 @@ function processSignatureRejected(state, event) {
         return;
     }
     state.data.status = "RejectionRequested";
-    state.appliedEvents.add("SignatureRejected");
+    state.appliedEvents.add("RevocationRequested");
 }
 
-function processSignatureRejectionDelivered(state, event) {
-    if (state.appliedEvents.size === 0 || !state.appliedEvents.has("SignatureRejected")) {
+function processRevocationRequestDelivered(state, event) {
+    if (state.appliedEvents.size === 0 || !state.appliedEvents.has("RevocationRequested")) {
         state.error = "Reject document before delivering rejection";
         return;
     }
@@ -187,7 +187,7 @@ function processSignatureRejectionDelivered(state, event) {
         return;
     }
     state.data.status = "DocflowRejected";
-    state.appliedEvents.add("SignatureRejectionDelivered");
+    state.appliedEvents.add("RevocationRequestDelivered");
 }
 
 function invalidStatusError(eventType, status) {
